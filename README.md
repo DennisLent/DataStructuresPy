@@ -23,7 +23,7 @@ _unfinished_
 
 ## HashMap
 > The hash table data structure connects each value with a key and stores them. To map any size of data set to one fixed size, the hash table uses the hash function. The values returned by a hash function are known as hash values
-Functionalities include:
+*Functionalities include:*
 - inserting / removing data
 - looking for data
 - setting and changing the hash function
