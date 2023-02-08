@@ -1,4 +1,4 @@
-from BasicNode import Node
+from Nodes import Node
 
 
 class DoublyLinkedList:
@@ -102,5 +102,7 @@ class DoublyLinkedList:
                 grt = item
         return grt.data
 
+if __name__ == "__main__":
+    pass
 
 

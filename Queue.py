@@ -1,4 +1,4 @@
-from BasicNode import Node
+from Nodes import Node
 
 class Queue:
     def __init__(self):
@@ -28,3 +28,5 @@ class Queue:
 
             self.__size += 1
 
+if __name__ == "__main__":
+    pass
