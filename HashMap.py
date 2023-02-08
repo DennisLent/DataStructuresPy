@@ -4,7 +4,7 @@ class HashMap:
 
     def __init__(self, size, hashfunc):
         self.__size = size
-        self.__buckets = [None for _ in range(self.__size + 1)]
+        self.__buckets = [None for _ in range(self.__size)]
         self.__hashfunc = hashfunc
 
     def __str__(self):
@@ -63,8 +63,22 @@ class HashMap:
                     return
                 iternode = iternode.next
         return f"key: {key} not found"
+    
+    def set_hash(self, hashfunc):
+        self.__hashfunc = hashfunc
+        i = 0
+        for node in self.__buckets:
+            if node is not None:
+                while node is not None:
+                    if self.__hashfunc(node.key, self.__size) != i:
+                        key, data = node.key, node.data
+                        self.remove_data(key)
+                        self.insert_data(Node2(data, key))
+                    node = node.next
+                    
+            i += 1
+            
 
-                
 
 if __name__ == "__main__":
 
@@ -75,12 +89,14 @@ if __name__ == "__main__":
         return (index % size)
 
     hm = HashMap(3, hashfunc)
+    print("Empty hashmap \n")
     print(hm)
 
     node_lst = [Node2(1, "ab"), Node2(2, "gh"), Node2(3, "zz"), Node2(4, "qq"), Node2(5, "hjq"), Node2(6, "ggwp"), Node2(7, "car"), Node2(8, "ass"), Node2(9, "chill"), Node2(10, "cheese")]
     for node in node_lst:
         hm.insert_data(node)
-    
+
+    print("hashmap after inserting nodes \n")
     print(hm)
 
     print(hm.get_data("ab"))
@@ -89,6 +105,19 @@ if __name__ == "__main__":
     hm.remove_data("gh")
     hm.remove_data("zz")
     hm.remove_data("dennis")
+
+    print("testing remove \n")
+    print(hm)
+
+    def hashfunc2(key, size):
+        index = 5
+        for letter in key:
+            index += ord(letter)
+        return (index % size)
+    
+    hm.set_hash(hashfunc2)
+
+    print("testing rearranging \n")
     print(hm)
 
     
