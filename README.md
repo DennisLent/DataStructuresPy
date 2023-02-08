@@ -1,5 +1,6 @@
 # DataStructuresPy
 Repo for basic data structures
+The idea for this was taken from [GoDaddy](https://in.godaddy.com/blog/8-basic-data-structures-every-programmer-should-know/#:~:text=Arrays%2C%20linked%20lists%2C%20stacks%2C,are%20the%20basic%20data%20structures.) Which gives a more explicit overview of each data structure. Also keep in mind, these implementations might not be the best (as in the _most efficient_) but serve to help outline the basic idea behind data structures and how to go about coding them. 
 
 ## Nodes
 Includes functionality for nodes that are used throughout the data structures. Nodes2 is only used for the hashamp as it includes the key attribute which is necessary
