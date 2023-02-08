@@ -6,6 +6,7 @@ Includes functionality for nodes that are used throughout the data structures. N
 
 ## DoublyLinkedList
 > A linked list is a linear data structure where items are arranged in linear order and linked (connected) to each other.
+
 Functionalities include:
 - adding / removing elements
 - searching for elements
@@ -14,16 +15,19 @@ Functionalities include:
 
 ## Stack
 > Stack is also a linear order structure, but it works in a LIFO (Last in First Out) order. It means the last-placed element can be accessed first.
+
 _unfinished_
 
 
 ## Queue
 > Queues are the same as Stack structure, but they don’t follow the LIFO model. A queue follows the FIFO (First in First Out) model. This means the first element can be accessed first.
+
 _unfinished_
 
 ## HashMap
 > The hash table data structure connects each value with a key and stores them. To map any size of data set to one fixed size, the hash table uses the hash function. The values returned by a hash function are known as hash values
-*Functionalities include:*
+
+Functionalities include:
 - inserting / removing data
 - looking for data
 - setting and changing the hash function
