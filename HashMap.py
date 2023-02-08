@@ -46,13 +46,14 @@ class HashMap:
         if key is not None:
             index = self.__hashfunc(key, self.__size)
             iternode = self.__buckets[index]
-            if iternode.key == key:
-                if iternode.next is not None:
-                    self.__buckets[index] = iternode.next
-                    self.__buckets[index].prev = None
-                else:
-                    self.__buckets[index] = None
-                return
+            if iternode is not None:
+                if iternode.key == key:
+                    if iternode.next is not None:
+                        self.__buckets[index] = iternode.next
+                        self.__buckets[index].prev = None
+                    else:
+                        self.__buckets[index] = None
+                    return
             
             while iternode is not None:
                 if key == iternode.key:
@@ -65,18 +66,22 @@ class HashMap:
         return f"key: {key} not found"
     
     def set_hash(self, hashfunc):
-        self.__hashfunc = hashfunc
         i = 0
+        nodelst = []
         for node in self.__buckets:
             if node is not None:
                 while node is not None:
-                    if self.__hashfunc(node.key, self.__size) != i:
+                    if hashfunc(node.key, self.__size) != i:
                         key, data = node.key, node.data
                         self.remove_data(key)
-                        self.insert_data(Node2(data, key))
+                        nodelst.append(Node2(data, key))
                     node = node.next
                     
             i += 1
+        
+        self.__hashfunc = hashfunc
+        for node in nodelst:
+            self.insert_data(node)
             
 
 
