@@ -39,7 +39,15 @@ class HashMap:
                 node.prev = iternode
     
     def get_data(self, key):
-        pass
+        if key is not None:
+            index = self.hashfunc(key)
+            iternode = self.__buckets[index]
+            while iternode is not None:
+                if key == iternode.key:
+                    return iternode.data
+                iternode = iternode.next
+            return f"{key} not found"
+
                     
     
 
@@ -54,6 +62,9 @@ if __name__ == "__main__":
         hm.insert_data(node)
     
     print(hm)
+
+    print(hm.get_data("ab"))
+    print(hm.get_data("abc"))
     
 
     
