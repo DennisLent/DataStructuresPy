@@ -22,6 +22,12 @@ class Queue:
         result = self.__current
         self.__current = self.__current.next
         return result
+    
+    def __str__(self):
+        return_string = "|-"
+        for item in self:
+            return_string += f"{item}-"
+        return return_string + "|"
 
     def enqueue(self, item):
         if item is not None:
@@ -29,12 +35,12 @@ class Queue:
                 self.__head = item
 
             elif self.__tail is None:
-                self.__head.next = self.__tail
+                self.__head.next = item
                 self.__tail = item
 
             else:
                 self.__tail.next = item
-                item = self.__tail
+                self.__tail = item
 
             self.__size += 1
     
@@ -43,9 +49,30 @@ class Queue:
             return None
         else:
             node = self.__head
-            nextnode = self.__head.next
-            self.__head = nextnode
-            return node
+            if node.next is not None:
+                nextnode = node.next
+                self.__head = nextnode
+                self.__size -= 1
+                return node
+            else:
+                self.__head = None
+                self.__tail = None
+                self.__size -= 1
+                return node
 
 if __name__ == "__main__":
-    pass
+    q = Queue()
+    print(q)
+
+    lst = [Node(i) for i in range(10)]
+    for node in lst:
+        q.enqueue(node)
+    
+    print(q)
+    print(f"length of queue after adding: {len(q)}")
+
+    while not q.empty():
+        dequeuedNode = q.dequeue()
+        print(f"node taken: {dequeuedNode}, queue now: {q}")
+
+

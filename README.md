@@ -22,7 +22,11 @@ _unfinished_
 ## Queue
 > Queues are the same as Stack structure, but they don’t follow the LIFO model. A queue follows the FIFO (First in First Out) model. This means the first element can be accessed first.
 
-_unfinished_
+Functionalities include:
+- enqueueing
+- dequeuing
+- determening length of queue
+- iteration
 
 ## HashMap
 > The hash table data structure connects each value with a key and stores them. To map any size of data set to one fixed size, the hash table uses the hash function. The values returned by a hash function are known as hash values
