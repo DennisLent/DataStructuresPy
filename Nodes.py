@@ -51,7 +51,7 @@ class Node2:
     """
     Basic Node structure for Hashmap
     """
-    def __init__(self, data: Any, key: str, next=None, prev=None):
+    def __init__(self, data, key: str, next=None, prev=None):
         try:
             self.__key = key
             if not type(key) == str:
