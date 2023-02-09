@@ -62,14 +62,16 @@ class BinaryTree:
             if key == self.data:
                 return True, self.data
             else:
-                if key < self.data:
-                    self.left.search(key)
-                else:
-                    return False, None
+                if key <= self.data:
+                    if self.left is not None:
+                        return self.left.search(key)
+                    else:
+                        return False, key
                 if key > self.data:
-                    self.right.search(key)
-                else:
-                    return False, None
+                    if self.right is not None:
+                        return self.right.search(key)
+                    else:
+                        return False, key
         return False, None
     
     def InOrder(self, function):
@@ -89,7 +91,7 @@ if __name__ == "__main__":
     BST = BinaryTree(13)
     lst = [i for i in range(15)]
     random.shuffle(lst)
-    print(lst)
+    print("shuffled list:", lst)
 
     for val in lst:
         BST.insert(val)
@@ -98,3 +100,14 @@ if __name__ == "__main__":
         print(node.data)
     
     BST.InOrder(function)
+
+    lst = lst + [44, 99, -1]
+    random.shuffle(lst)
+    print("new shuffled list:", lst)
+
+    for val in lst:
+        check, x = BST.search(val)
+        if check:
+            print(f"{x} is in tree")
+        else:
+            print(f"{x} is not in tree")
