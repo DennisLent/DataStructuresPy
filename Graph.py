@@ -4,7 +4,7 @@ from GraphHelper import PrintGraph
 class Graph:
     def __init__(self, node_dict: dict, connections: dict, directed=False):
         "Class to create a Graph can be directed or undirected"
-        self.node_dict = nodes
+        self.node_dict = node_dict
         self.connections = connections
         self.directed = directed
     
