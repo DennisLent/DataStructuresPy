@@ -31,8 +31,8 @@ class Graph:
         return node2 in self.connections[node1]
     
     def add_node(self, node_name, node_dict={}):
-        self.nodes[node_name] = node_dict
-        self.connections = {}
+        self.node_dict[node_name] = node_dict
+        self.connections[node_name] = {}
     
     def add_edge(self, node1, node2, weight=1):
         node1_connections = self.connections.get(node1)
@@ -81,8 +81,14 @@ if __name__ == "__main__":
     }
 
 
-    g = Graph(nodes, connections, True)
+    g = Graph(nodes, connections)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
+    PrintGraph(g)
+    g.add_edge('v1', 'v2', weight=2)
+    g.add_node('v8', {'pos': [1.4, 0.8], 'color': 'purple'})
+    g.add_edge('v8', 'v7', 3)
+    g.add_edge('v8', 'v1', 1)
+    g.remove_edge('v1', 'v2')
     PrintGraph(g)
 
