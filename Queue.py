@@ -31,16 +31,17 @@ class Queue:
 
     def enqueue(self, item):
         if item is not None:
+            ToEnqueue = Node(item)
             if self.__head is None:
-                self.__head = item
+                self.__head = ToEnqueue
 
             elif self.__tail is None:
-                self.__head.next = item
-                self.__tail = item
+                self.__head.next = ToEnqueue
+                self.__tail = ToEnqueue
 
             else:
-                self.__tail.next = item
-                self.__tail = item
+                self.__tail.next = ToEnqueue
+                self.__tail = ToEnqueue
 
             self.__size += 1
     
@@ -53,12 +54,12 @@ class Queue:
                 nextnode = node.next
                 self.__head = nextnode
                 self.__size -= 1
-                return node
+                return node.data
             else:
                 self.__head = None
                 self.__tail = None
                 self.__size -= 1
-                return node
+                return node.data
 
 if __name__ == "__main__":
     q = Queue()
