@@ -49,3 +49,16 @@ Functionalities include:
 - searching
 - in order traversal
 
+## Graph
+> A graph is an abstract data structure that consists of a fixed set of nodes (vertices) and is connected by a set of edges (lines connecting the nodes). Graphs are great utensils for solving real-world problems as well as representing digital networks.
+
+_The GraphHelper script includes the necessary function to print the graph and to visualize it. It requires pyplot to work_
+
+Functionalities include:
+- making directed and undirected graphs
+- adding and removing edges
+- altering edge weights
+- checking if the graph is connected
+- checking if the graph is cyclic
+- kruskal's algorithm: determening the minimum spanning tree necessary to cover all nodes
+
