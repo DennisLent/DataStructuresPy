@@ -40,3 +40,12 @@ Functionalities include:
 - inserting / removing data
 - looking for data
 - setting and changing the hash function
+
+## Binary Search Tree (BinaryTree)
+> In the tree structure, data is linked together as in the linked list but organized hierarchically. As such they are very good for organizing unstructured data and are widely used to help create expression solvers and in wireless networking
+
+Functionalities include:
+- inserting
+- searching
+- in order traversal
+
