@@ -9,7 +9,8 @@ def PrintGraph(graph):
     min_xval, max_xval = 0, 0
     min_yval, max_yval = 0, 0
     if not graph.directed:
-        for node in graph.nodes:
+        node_lst = graph.nodes()
+        for node in node_lst:
             name = node
             location, color = graph.nodes[node]
             if location[0] < min_xval:
@@ -30,7 +31,8 @@ def PrintGraph(graph):
                 avg_x, avg_y = (begin_x + end_x) / 2 + 0.01, (begin_y + end_y) / 2 + 0.01
                 plt.text(avg_x, avg_y, f"{weight}")
     else:
-        for node in graph.nodes:
+        node_lst = graph.nodes()
+        for node in node_lst:
             name = node
             location, color = graph.nodes[node]
             if location[0] < min_xval:
