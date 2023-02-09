@@ -20,7 +20,7 @@ Functionalities include:
 Functionalities include:
 - pushing
 - popping
-- determening length of queue
+- determening length of stack
 - iteration
 
 
