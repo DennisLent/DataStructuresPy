@@ -17,7 +17,11 @@ Functionalities include:
 ## Stack
 > Stack is also a linear order structure, but it works in a LIFO (Last in First Out) order. It means the last-placed element can be accessed first.
 
-_unfinished_
+Functionalities include:
+- pushing
+- popping
+- determening length of queue
+- iteration
 
 
 ## Queue
