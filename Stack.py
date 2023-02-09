@@ -35,14 +35,41 @@ class Stack:
         elif self.__tail is None:
             self.__head.next = item
             self.__tail = item
+            self.__tail.prev = self.__head
         else:
             self.__tail.next = item
+            item.prev = self.__tail
             self.__tail = item
         self.__size += 1
     
     def pop(self):
         if self.empty():
             return None
+        else:
+            node = self.__tail
+            if node.prev is not None:
+                prevnode = node.prev
+                self.__tail = prevnode
+                self.__tail.next = None
+                self.__size -= 1
+                return node
+            else:
+                self.__head = None
+                self.__tail = None
+                self.__size -= 1
+                return node
 
 if __name__ == "__main__":
     stack = Stack()
+    print(stack)
+
+    lst = [Node(i) for i in range(10)]
+    for node in lst:
+        stack.push(node)
+    
+    print(stack)
+    print(f"length of stack after adding: {len(stack)}")
+
+    while not stack.empty():
+        popppedNode = stack.pop()
+        print(f"node taken: {popppedNode}, stack now: {stack} with length of {len(stack)}")

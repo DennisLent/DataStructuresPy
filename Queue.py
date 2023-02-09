@@ -73,6 +73,6 @@ if __name__ == "__main__":
 
     while not q.empty():
         dequeuedNode = q.dequeue()
-        print(f"node taken: {dequeuedNode}, queue now: {q}")
+        print(f"node taken: {dequeuedNode}, queue now: {q} with length of {len(q)}")
 
 
