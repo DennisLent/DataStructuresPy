@@ -43,15 +43,26 @@ class Node:
     def __eq__(self, other):
         return self.data == other.data
 
+class InvalidKeyException(Exception):
+    "Raised when key is not a string"
+    pass
+
+
 class Node2:
     """
-    Basic Node structure
+    Basic Node structure for Hashmap
     """
     def __init__(self, data, key, next=None, prev=None):
-        self.__data = data
-        self.__key = key
-        self.__next = next
-        self.__prev = prev
+        try:
+            self.__key = key
+            if not type(key) == str:
+                raise InvalidKeyException
+            else:
+                self.__data = data
+                self.__next = next
+                self.__prev = prev
+        except InvalidKeyException:
+            print("key should be a string")
 
     def __str__(self):
         return f"({self.__key}): {self.__data}"
@@ -99,4 +110,5 @@ class Node2:
 
 
 if __name__ == "__main__":
-    pass
+    NodeWorks = Node2(3, "test")
+    NodeFails = Node2(3, 5)
