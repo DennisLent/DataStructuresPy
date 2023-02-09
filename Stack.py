@@ -30,17 +30,19 @@ class Stack:
         return return_string + "|"
 
     def push(self, item):
-        if self.__head is None:
-            self.__head = item
-        elif self.__tail is None:
-            self.__head.next = item
-            self.__tail = item
-            self.__tail.prev = self.__head
-        else:
-            self.__tail.next = item
-            item.prev = self.__tail
-            self.__tail = item
-        self.__size += 1
+        if item is not None:
+            ToPush = Node(item)
+            if self.__head is None:
+                self.__head = ToPush
+            elif self.__tail is None:
+                self.__head.next = ToPush
+                self.__tail = ToPush
+                self.__tail.prev = self.__head
+            else:
+                self.__tail.next = ToPush
+                ToPush.prev = self.__tail
+                self.__tail = ToPush
+            self.__size += 1
     
     def pop(self):
         if self.empty():
@@ -52,12 +54,12 @@ class Stack:
                 self.__tail = prevnode
                 self.__tail.next = None
                 self.__size -= 1
-                return node
+                return node.data
             else:
                 self.__head = None
                 self.__tail = None
                 self.__size -= 1
-                return node
+                return node.data
 
 if __name__ == "__main__":
     stack = Stack()
