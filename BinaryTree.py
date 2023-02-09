@@ -1,5 +1,3 @@
-from Nodes import BSTNode
-
 class BinaryTree:
     """
     Basic Node structure for binary tree where:
@@ -59,7 +57,44 @@ class BinaryTree:
             else:
                 self.right.insert(key)
     
+    def search(self, key):
+        if key is not None:
+            if key == self.data:
+                return True, self.data
+            else:
+                if key < self.data:
+                    self.left.search(key)
+                else:
+                    return False, None
+                if key > self.data:
+                    self.right.search(key)
+                else:
+                    return False, None
+        return False, None
+    
+    def InOrder(self, function):
+        if self.left is not None:
+            self.left.InOrder(function)
+        
+        function(self)
+
+        if self.right is not None:
+            self.right.InOrder(function)
+    
 
 
 if __name__ == "__main__":
-    pass
+    import random
+
+    BST = BinaryTree(13)
+    lst = [i for i in range(15)]
+    random.shuffle(lst)
+    print(lst)
+
+    for val in lst:
+        BST.insert(val)
+    
+    def function(node):
+        print(node.data)
+    
+    BST.InOrder(function)
