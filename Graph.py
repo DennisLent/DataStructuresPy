@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 from GraphHelper import PrintGraph
 
+class InvalidGraphException(Exception):
+    "To be raised if a Graph is not of the right type"
+    pass
+
 class Graph:
     def __init__(self, node_dict: dict, connections: dict, directed=False):
         "Class to create a Graph can be directed or undirected"
@@ -91,6 +95,38 @@ class Graph:
                 if _contains_cycle(self, node_lst, node, visited, None):
                     return True
         return False
+    
+    def kruskal(self):
+        try:
+            check = self.directed
+            if check:
+                raise InvalidGraphException
+            else:
+                kruskal = Graph({}, {}, self.directed)
+                for node, node_info in self.node_dict.items():
+                    kruskal.add_node(node, node_info)
+                print("nodes in kruskal:", str(kruskal.nodes()))
+                queue = sorted(self.all_edges(), key=lambda edge: edge[2])
+                print("queue for sorting:", queue)
+                connectedBool = False
+                while len(queue) != 0 or connectedBool:
+                    edge = queue.pop(0)
+                    print("edge to add:", edge)
+                    begin, end, weight = edge
+                    kruskal.add_edge(begin, end, weight)
+                    if kruskal.is_cyclic():
+                        print("edge not added because it is cyclic")
+                        kruskal.remove_edge(begin, end)
+                    if kruskal.is_connected():
+                        connectedBool = True
+                min_weight = 0
+                for edge in kruskal.all_edges():
+                    min_weight += edge[2]
+                
+                return min_weight, kruskal
+
+        except InvalidGraphException:
+            print("This method only works for undirected Graphs")
 
         
 
@@ -120,13 +156,15 @@ if __name__ == "__main__":
     g = Graph(nodes, connections)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
-    PrintGraph(g)
+    PrintGraph(g, "Graph with 8 nodes")
     g.add_edge('v1', 'v2', weight=2)
     g.add_node('v8', {'pos': [1.4, 0.8], 'color': 'purple'})
     g.add_edge('v8', 'v7', 3)
     g.add_edge('v8', 'v1', 1)
     g.remove_edge('v1', 'v2')
-    PrintGraph(g)
+    PrintGraph(g, "Graph with 9 nodes")
     print(f"The graph is connected: {g.is_connected('v1')}")
     print(f"The graph is cyclic: {g.is_cyclic()}")
+    weight, kruskal = g.kruskal()
+    PrintGraph(kruskal, f"Graph with minimum weight of {weight}")
 

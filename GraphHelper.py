@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def PrintGraph(graph):
+def PrintGraph(graph, name=None):
 
     """
     Method of visualize the graph created
@@ -30,6 +30,8 @@ def PrintGraph(graph):
                 plt.arrow(begin_x, begin_y, dx, dy, color="red", length_includes_head=True, width=0.01)
             avg_x, avg_y = (begin_x + end_x) / 2 + 0.01, (begin_y + end_y) / 2 + 0.01
             plt.text(avg_x, avg_y, f"{weight}")
+    if name is not None:
+        plt.title(name)
     plt.show()
 
 if __name__ == "__main__":
