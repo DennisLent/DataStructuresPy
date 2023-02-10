@@ -55,7 +55,25 @@ class Graph:
             del self.connections[connected_node][node]
         del self.connections[node]
         del self.node_dict[node]
+    
+    def is_connected(self, start=None, visited=None):
+        node_lst = self.nodes()
+        if start is None:
+            start = node_lst[0]
+        if visited is None:
+            visited = set()
+        visited.add(start)
+        if len(visited) != len(node_lst):
+            for neighboring_node in self.neighbors(start):
+                if neighboring_node not in visited:
+                    if self.is_connected(neighboring_node, visited):
+                        return True
+        else:
+            return True
+        return False
 
+    def is_cyclic(self):
+        pass
         
 
 
@@ -91,4 +109,5 @@ if __name__ == "__main__":
     g.add_edge('v8', 'v1', 1)
     g.remove_edge('v1', 'v2')
     PrintGraph(g)
+    print(f"The graph is connected? {g.is_connected('v1')}")
 
