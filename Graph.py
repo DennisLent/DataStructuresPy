@@ -151,15 +151,18 @@ if __name__ == "__main__":
 
     import random
     
-    def generateRandomGraph(n_nodes, max_connections_per_node, max_weight = 1, directed=False):
+    def generateRandomGraph(n_nodes, max_connections_per_node, max_weight = 1, directed=False, random_color=False, dim=(100,100)):
             graph = Graph({}, {}, directed)
             for i in range(n_nodes + 1):
-                pos = [random.randrange(0,50), random.randrange(0,50)]
-                color = (random.random(), random.random(), random.random())
-                node_dict = {"pos": pos, "color": "black"}
+                pos = [random.randrange(0,dim[0]), random.randrange(0,dim[1])]
+                if random_color:
+                    color = (random.random(), random.random(), random.random())
+                    node_dict = {"pos": pos, "color": color}
+                else:
+                    node_dict = {"pos": pos, "color": "black"}
                 graph.add_node(f"v{i}", node_dict)
             for start_node in graph.nodes():
-                for _ in range(random.randrange(1, max_connections_per_node)):
+                for _ in range(random.randrange(max_connections_per_node)+1):
                     end_index = random.randrange(0, n_nodes+1)
                     end_node = graph.nodes()[end_index]
                     weight = random.randint(1, max_weight)
@@ -175,7 +178,7 @@ if __name__ == "__main__":
     print(f"The graph is connected: {g.is_connected('v1')}")
     print(f"The graph is cyclic: {g.is_cyclic()}")
     weight, kruskal = g.kruskal()
-    PrintGraph(kruskal, f"Graph with minimum weight of: {weight}")
+    PrintGraph(kruskal, f"Graph with {len(kruskal.nodes())}minimum weight of: {weight}")
 
     for node in g.nodes():
         dist = g.bellmanFord(node)
