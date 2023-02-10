@@ -123,6 +123,9 @@ class Graph:
 
         except InvalidGraphException:
             print("This method only works for undirected Graphs")
+    
+    def dijkstra(self, start_node, end_node):
+        pass
 
         
 
@@ -136,29 +139,32 @@ if __name__ == "__main__":
     'v4': {'pos': [3.5, 5.5], 'color': 'orange'},
     'v5': {'pos': [2.5, 3.5], 'color': 'blue'},
     'v6': {'pos': [1.5, 2.5], 'color': 'red'},
-    'v7': {'pos': [4.0, 2.0], 'color': 'pink'}
+    'v7': {'pos': [4.0, 2.0], 'color': 'pink'},
+    'v8': {'pos': [4.0, 5.0], 'color': 'green'},
+    'v9': {'pos': [5.0, 3.5], 'color': 'cyan'},
+    'v10': {'pos': [1.0, -2.0], 'color': 'orange'},
+    'v11': {'pos': [5.0, 6.0], 'color': 'grey'}
     }
     connections = {'v0': {'v1': 2, 'v2': 1, 'v6': 2, 'v7': 1},
-    'v1': {'v0': 2},
+    'v1': {'v0': 2, 'v11': 3},
     'v2': {'v0': 1, 'v3': 1, 'v4': 2, 'v6': 3},
-    'v3': {'v2': 1, 'v4': 1},
-    'v4': {'v2': 2, 'v3': 1, 'v6': 1},
-    'v5': {'v6': 1},
-    'v6': {'v0': 2, 'v2': 3, 'v4': 1, 'v5': 1},
-    'v7': {'v0': 1}
+    'v3': {'v2': 1, 'v4': 1, 'v8': 3},
+    'v4': {'v2': 2, 'v3': 1, 'v6': 1, 'v10': 1},
+    'v5': {'v6': 1, 'v8': 2},
+    'v6': {'v0': 2, 'v2': 3, 'v4': 1, 'v5': 1, 'v10': 5},
+    'v7': {'v0': 1, 'v9': 1},
+    'v8': {'v9': 4, 'v10': 2, 'v3': 3},
+    'v9': {'v8': 4},
+    'v10': {'v4': 1, 'v6': 5},
+    'v11': {'v1': 3}
     }
 
 
     g = Graph(nodes, connections)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
-    PrintGraph(g, "Graph with 8 nodes")
     g.add_edge('v1', 'v2', weight=2)
-    g.add_node('v8', {'pos': [1.4, 0.8], 'color': 'purple'})
-    g.add_edge('v8', 'v7', 3)
-    g.add_edge('v8', 'v1', 1)
-    g.remove_edge('v1', 'v2')
-    PrintGraph(g, "Graph with 9 nodes")
+    PrintGraph(g, "Graph with 12 nodes")
     print(f"The graph is connected: {g.is_connected('v1')}")
     print(f"The graph is cyclic: {g.is_cyclic()}")
     weight, kruskal = g.kruskal()
