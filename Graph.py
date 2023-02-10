@@ -171,7 +171,6 @@ if __name__ == "__main__":
     
 
     g = generateRandomGraph(10, 3, 5)
-    g = Graph(nodes, connections)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
     PrintGraph(g, "Random Graph")
