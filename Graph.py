@@ -124,49 +124,67 @@ class Graph:
         except InvalidGraphException:
             print("This method only works for undirected Graphs")
     
-    def dijkstra(self, start_node, end_node):
-        pass
+    def bellmanFord(self, start_node):
+        nodes = self.nodes()
+        distances = {}
+        for node in nodes:
+            distances[node] = float("Inf")
+        distances[start_node] = 0
+        for _ in range(len(nodes)-1):
+            for edge in self.all_edges():
+                begin, end, weight = edge
+                if distances[begin] + weight < distances[end]:
+                    distances[end] = distances[begin] + weight
+        for _ in range(len(nodes)-1):
+            for edge in self.all_edges():
+                begin, end, weight = edge
+                if distances[begin] + weight < distances[end]:
+                    distances[end] = float("-Inf")
+        return distances 
+
+
 
         
 
 
 if __name__ == "__main__":
+
+    import random
     
-    nodes = {'v0': {'pos': [3.0, 2.0], 'color': 'cyan'},
-    'v1': {'pos': [2.0, 1.5], 'color': 'orange'},
-    'v2': {'pos': [3.0, 3.5], 'color': 'orange'},
-    'v3': {'pos': [3.5, 2.6], 'color': 'grey'},
-    'v4': {'pos': [3.5, 5.5], 'color': 'orange'},
-    'v5': {'pos': [2.5, 3.5], 'color': 'blue'},
-    'v6': {'pos': [1.5, 2.5], 'color': 'red'},
-    'v7': {'pos': [4.0, 2.0], 'color': 'pink'},
-    'v8': {'pos': [4.0, 5.0], 'color': 'green'},
-    'v9': {'pos': [5.0, 3.5], 'color': 'cyan'},
-    'v10': {'pos': [1.0, -2.0], 'color': 'orange'},
-    'v11': {'pos': [5.0, 6.0], 'color': 'grey'}
-    }
-    connections = {'v0': {'v1': 2, 'v2': 1, 'v6': 2, 'v7': 1},
-    'v1': {'v0': 2, 'v11': 3},
-    'v2': {'v0': 1, 'v3': 1, 'v4': 2, 'v6': 3},
-    'v3': {'v2': 1, 'v4': 1, 'v8': 3},
-    'v4': {'v2': 2, 'v3': 1, 'v6': 1, 'v10': 1},
-    'v5': {'v6': 1, 'v8': 2},
-    'v6': {'v0': 2, 'v2': 3, 'v4': 1, 'v5': 1, 'v10': 5},
-    'v7': {'v0': 1, 'v9': 1},
-    'v8': {'v9': 4, 'v10': 2, 'v3': 3},
-    'v9': {'v8': 4},
-    'v10': {'v4': 1, 'v6': 5},
-    'v11': {'v1': 3}
-    }
+    def generateRandomGraph(n_nodes, max_connections_per_node, max_weight = 1, directed=False):
+            graph = Graph({}, {}, directed)
+            for i in range(n_nodes + 1):
+                pos = [random.randrange(0,50), random.randrange(0,50)]
+                color = (random.random(), random.random(), random.random())
+                node_dict = {"pos": pos, "color": color}
+                print(f"random node: v{i} with info {str(node_dict)}")
+                graph.add_node(f"v{i}", node_dict)
+            for start_node in graph.nodes():
+                print(f"adding connections for node {start_node}")
+                for _ in range(random.randrange(0, max_connections_per_node)+1):
+                    end_index = random.randrange(0, n_nodes+1)
+                    end_node = graph.nodes()[end_index]
+                    weight = random.randint(1, max_weight+1)
+                    print(f"connection from {start_node} to {end_node} with weight of {weight}")
+                    graph.add_edge(start_node, end_node, weight)
+            return graph
+    
 
-
+    g = generateRandomGraph(10, 3, 5)
     g = Graph(nodes, connections)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
-    g.add_edge('v1', 'v2', weight=2)
-    PrintGraph(g, "Graph with 12 nodes")
+    PrintGraph(g, "Random Graph")
     print(f"The graph is connected: {g.is_connected('v1')}")
     print(f"The graph is cyclic: {g.is_cyclic()}")
     weight, kruskal = g.kruskal()
     PrintGraph(kruskal, f"Graph with minimum weight of: {weight}")
+
+    for node in g.nodes():
+        dist = g.bellmanFord(node)
+        print(f"-----Minimum distances from {node}-----")
+        for end_node, weight in dist.items():
+            print(f"{node} to {end_node} = {weight}")
+    
+    PrintGraph(g, f"Graph with {len(g.nodes())} nodes")
 

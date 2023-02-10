@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 
+def get_cmap(n, name="hsv"):
+    return plt.cm.get_cmap(name, n)
+
 def PrintGraph(graph, name=None):
 
     """
@@ -17,7 +20,10 @@ def PrintGraph(graph, name=None):
             min_y = location[1]
         if location[1] > max_y:
             max_y = location[1]
-        plt.scatter(location[0], location[1], color=color)
+        if type(color) == str: 
+            plt.scatter(location[0], location[1], color=color)
+        else:
+            plt.scatter(location[0], location[1], c=color)
         plt.text(location[0], location[1] + 0.01, f"{node}")
     for node in graph.connections:
         for end_node, weight in graph.connections[node].items():
