@@ -73,7 +73,25 @@ class Graph:
         return False
 
     def is_cyclic(self):
-        pass
+        
+        def _contains_cycle(graph, node_lst, current_node, visited, parent_node):
+            visited.add(current_node)
+            for neighboring_node in graph.neighbors(current_node):
+                if neighboring_node not in visited:
+                    if _contains_cycle(graph, node_lst, neighboring_node, visited, current_node):
+                        return True
+                elif parent_node != neighboring_node:
+                    return True
+            return False
+
+        node_lst = self.nodes()
+        visited = set()
+        for node in node_lst:
+            if not node in visited:
+                if _contains_cycle(self, node_lst, node, visited, None):
+                    return True
+        return False
+
         
 
 
@@ -109,5 +127,6 @@ if __name__ == "__main__":
     g.add_edge('v8', 'v1', 1)
     g.remove_edge('v1', 'v2')
     PrintGraph(g)
-    print(f"The graph is connected? {g.is_connected('v1')}")
+    print(f"The graph is connected: {g.is_connected('v1')}")
+    print(f"The graph is cyclic: {g.is_cyclic()}")
 
