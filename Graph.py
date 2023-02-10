@@ -156,24 +156,22 @@ if __name__ == "__main__":
             for i in range(n_nodes + 1):
                 pos = [random.randrange(0,50), random.randrange(0,50)]
                 color = (random.random(), random.random(), random.random())
-                node_dict = {"pos": pos, "color": color}
-                print(f"random node: v{i} with info {str(node_dict)}")
+                node_dict = {"pos": pos, "color": "black"}
                 graph.add_node(f"v{i}", node_dict)
             for start_node in graph.nodes():
-                print(f"adding connections for node {start_node}")
-                for _ in range(random.randrange(0, max_connections_per_node)+1):
+                for _ in range(random.randrange(1, max_connections_per_node)):
                     end_index = random.randrange(0, n_nodes+1)
                     end_node = graph.nodes()[end_index]
-                    weight = random.randint(1, max_weight+1)
-                    print(f"connection from {start_node} to {end_node} with weight of {weight}")
-                    graph.add_edge(start_node, end_node, weight)
+                    weight = random.randint(1, max_weight)
+                    if start_node != end_node:
+                        graph.add_edge(start_node, end_node, weight)
             return graph
     
 
     g = generateRandomGraph(10, 3, 5)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
-    PrintGraph(g, "Random Graph")
+    PrintGraph(g, f"Random Graph with {len(g.nodes())} nodes")
     print(f"The graph is connected: {g.is_connected('v1')}")
     print(f"The graph is cyclic: {g.is_cyclic()}")
     weight, kruskal = g.kruskal()
@@ -184,6 +182,4 @@ if __name__ == "__main__":
         print(f"-----Minimum distances from {node}-----")
         for end_node, weight in dist.items():
             print(f"{node} to {end_node} = {weight}")
-    
-    PrintGraph(g, f"Graph with {len(g.nodes())} nodes")
 
