@@ -5,6 +5,10 @@ class InvalidGraphException(Exception):
     "To be raised if a Graph is not of the right type"
     pass
 
+class NotConnectedException(Exception):
+    "Raised if a tree is not connected"
+    pass
+
 class Graph:
     def __init__(self, node_dict: dict, connections: dict, directed=False):
         "Class to create a Graph can be directed or undirected"
@@ -101,6 +105,8 @@ class Graph:
             check = self.directed
             if check:
                 raise InvalidGraphException
+            if not self.is_connected():
+                raise NotConnectedException
             else:
                 kruskal = Graph({}, {}, self.directed)
                 for node, node_info in self.node_dict.items():
@@ -123,6 +129,9 @@ class Graph:
 
         except InvalidGraphException:
             print("This method only works for undirected Graphs")
+        
+        except NotConnectedException:
+            print("The graph is connected")
     
     def bellmanFord(self, start_node):
         nodes = self.nodes()
@@ -178,7 +187,7 @@ if __name__ == "__main__":
     print(f"The graph is connected: {g.is_connected('v1')}")
     print(f"The graph is cyclic: {g.is_cyclic()}")
     weight, kruskal = g.kruskal()
-    PrintGraph(kruskal, f"Graph with {len(kruskal.nodes())}minimum weight of: {weight}")
+    PrintGraph(kruskal, f"Graph with {len(kruskal.nodes())} minimum weight of: {weight}")
 
     for node in g.nodes():
         dist = g.bellmanFord(node)
