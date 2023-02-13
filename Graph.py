@@ -160,7 +160,7 @@ if __name__ == "__main__":
 
     import random
     
-    def generateRandomGraph(n_nodes, max_connections_per_node, max_weight = 1, directed=False, random_color=False, dim=(100,100)):
+    def generateRandomGraph(n_nodes: int, max_connections_per_node: int, max_weight = 1, directed=False, random_color=False, dim=(100,100)):
             graph = Graph({}, {}, directed)
             for i in range(n_nodes + 1):
                 pos = [random.randrange(0,dim[0]), random.randrange(0,dim[1])]
