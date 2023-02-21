@@ -133,23 +133,20 @@ class Graph:
         except NotConnectedException:
             print("The graph is connected")
     
-    def bellmanFord(self, start_node):
+    def dijkstra(self, start_node):
+        Q = {}
+        Q[start_node] = 0
         nodes = self.nodes()
-        distances = {}
         for node in nodes:
-            distances[node] = float("Inf")
-        distances[start_node] = 0
-        for _ in range(len(nodes)-1):
-            for edge in self.all_edges():
-                begin, end, weight = edge
-                if distances[begin] + weight < distances[end]:
-                    distances[end] = distances[begin] + weight
-        for _ in range(len(nodes)-1):
-            for edge in self.all_edges():
-                begin, end, weight = edge
-                if distances[begin] + weight < distances[end]:
-                    distances[end] = float("-Inf")
-        return distances 
+            if node != start_node:
+                Q[node] = float("Inf")
+        for node in Q.keys():
+            for neighbor_node in self.neighbors(node):
+                begin, end, weight = node, neighbor_node, self.return_edge_weight(node, neighbor_node)
+                if Q[begin] + weight < Q[end]:
+                    Q[end] = Q[begin] + weight
+        return Q
+
 
 
 
@@ -162,7 +159,7 @@ if __name__ == "__main__":
     
     def generateRandomGraph(n_nodes: int, max_connections_per_node: int, max_weight = 1, directed=False, random_color=False, dim=(100,100)):
             graph = Graph({}, {}, directed)
-            for i in range(n_nodes + 1):
+            for i in range(n_nodes):
                 pos = [random.randrange(0,dim[0]), random.randrange(0,dim[1])]
                 if random_color:
                     color = (random.random(), random.random(), random.random())
@@ -171,16 +168,18 @@ if __name__ == "__main__":
                     node_dict = {"pos": pos, "color": "black"}
                 graph.add_node(f"v{i}", node_dict)
             for start_node in graph.nodes():
-                for _ in range(random.randrange(max_connections_per_node)+1):
-                    end_index = random.randrange(0, n_nodes+1)
+                con_val = random.randint(1, max_connections_per_node)
+                while con_val != 0:
+                    end_index = random.randint(0, n_nodes-1)
                     end_node = graph.nodes()[end_index]
                     weight = random.randint(1, max_weight)
-                    if start_node != end_node:
+                    if (start_node != end_node) and (not graph.is_joined(start_node, end_node)):
                         graph.add_edge(start_node, end_node, weight)
+                    con_val -= 1
             return graph
     
 
-    g = generateRandomGraph(10, 3, 5)
+    g = generateRandomGraph(5, 3, 5)
     print(f"all the nodes: {str(g.nodes())}")
     print(f"all edges on the graph: {str(g.all_edges())}")
     PrintGraph(g, f"Random Graph with {len(g.nodes())} nodes")
@@ -190,8 +189,10 @@ if __name__ == "__main__":
     PrintGraph(kruskal, f"Graph with {len(kruskal.nodes())} minimum weight of: {weight}")
 
     for node in g.nodes():
-        dist = g.bellmanFord(node)
+        dist = g.dijkstra(node)
         print(f"-----Minimum distances from {node}-----")
         for end_node, weight in dist.items():
             print(f"{node} to {end_node} = {weight}")
+
+    PrintGraph(g, "reprint graph to check")
 
