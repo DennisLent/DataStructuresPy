@@ -148,11 +148,6 @@ class Graph:
         return Q
 
 
-
-
-        
-
-
 if __name__ == "__main__":
 
     import random
