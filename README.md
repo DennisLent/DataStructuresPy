@@ -62,4 +62,5 @@ Functionalities include:
 - checking if the graph is connected
 - checking if the graph is cyclic
 - kruskal's algorithm: determening the minimum spanning tree necessary to cover all nodes
+- dijkstra's algorithm for finding the shortest route to all nodes
 
