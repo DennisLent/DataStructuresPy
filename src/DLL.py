@@ -1,4 +1,4 @@
-from Nodes import Node
+from src import Nodes
 
 
 class DoublyLinkedList:
@@ -42,7 +42,7 @@ class DoublyLinkedList:
 
     def add(self, item):
         if item is not None:
-            node = Node(item)
+            node = Nodes.Node(item)
             if self.empty():
                 self.__head = node
             else:
