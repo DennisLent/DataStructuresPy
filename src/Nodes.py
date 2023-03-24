@@ -109,5 +109,4 @@ class Node2:
 
 
 if __name__ == "__main__":
-    NodeWorks = Node2(3, "test")
-    NodeFails = Node2(3, 5)
+    pass
