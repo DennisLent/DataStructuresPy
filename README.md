@@ -14,6 +14,10 @@ Functionalities include:
 - returning smallest and greatest elements
 - iteration
 
+The items in the linked list are in a node. This means that to access the specific data stored in them, you need to access it.
+```AssertEqual(Node(1), 1)```
+Will fail
+
 ## Stack
 > Stack is also a linear order structure, but it works in a LIFO (Last in First Out) order. It means the last-placed element can be accessed first.
 

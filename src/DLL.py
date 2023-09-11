@@ -5,11 +5,15 @@ class DoublyLinkedList:
     """
     Doubly Linked List that is none terminated
     Empty if head and tail are None
+    Takes in None or a list
     """
-    def __init__(self):
-        self.__head = None
-        self.__tail = None
-        self.__size = 0
+    def __init__(self, lst=[]):
+            self.__head = None
+            self.__tail = None
+            self.__size = 0
+            if lst is not None:
+                for item in lst:
+                    self.add(item)
 
     def __str__(self):
         return_string = "|"
