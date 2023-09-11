@@ -64,3 +64,17 @@ Functionalities include:
 - kruskal's algorithm: determening the minimum spanning tree necessary to cover all nodes
 - dijkstra's algorithm for finding the shortest route to all nodes
 
+## Code Coverage
+Make sure coverage is installed
+```python3 -m pip install coverage```
+
+You can then just run the coverage results as you would using unittest
+
+```coverage run -m unittest discover -v```
+```coverage report ```
+
+Additionally, this will be saved in as a html document, and you can view the entire report in your favorite browser
+
+```firefox htmlcov/index.html```
+
+
